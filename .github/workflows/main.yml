@@ -6,9 +6,10 @@ jobs:
     name: A job to say hello
     steps:
       - uses: actions/checkout@v2
-      - id: foo
-        uses: ./.github/actions/goodbye
+      - id: reusable
+        name: Reusable action
+        uses: ./.github/actions/hello
         with:
-          who-to-greet: "Mona the Octocat"
-      - run: echo random-number ${{ steps.foo.outputs.random-number }}
+          who-to-greet: "Stan Wozniak"
+      - run: echo random-number ${{ steps.reusable.outputs.random-number }}
         shell: bash
