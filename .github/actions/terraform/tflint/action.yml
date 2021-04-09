@@ -25,7 +25,7 @@ runs:
       working-directory: ${{ inputs.working-folder }}
       name: Lint
       run: |-
-        set resultsPath="tflint-results.xml"
+        resultsPath="tflint-results.xml"
         echo "::set-output name=results-path::$(echo $resultsPath)"
         tflint . --format=junit > $resultsPath
       shell: bash
