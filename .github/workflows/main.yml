@@ -13,3 +13,13 @@ jobs:
           who-to-greet: "Stan Wozniak"
       - run: echo random-number ${{ steps.reusable.outputs.random-number }}
         shell: bash
+  tflint:
+    runs-on: ubuntu-latest
+    name: A job to run TFLint
+    steps:
+      - uses: actions/checkout@v2
+      - id: tflint
+        name: Reusable action
+        uses: ./.github/actions/tflint
+      - run: 'echo "Results path: ${{ steps.tflint.outputs.results-path }}"'
+        shell: bash

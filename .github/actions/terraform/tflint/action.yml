@@ -1,0 +1,31 @@
+name: "TFLint"
+description: "Runs TFLint in the specified folder, and returns path to JUnit XML results file"
+inputs:
+  working-folder:
+    description: Working folder
+    required: false
+    default: .
+  tflint-version:
+    description: TFLint's version to use
+    required: false
+    default: v0.26.0
+outputs:
+  results-path:
+    description: "Path where results are stored"
+    value: ${{ steps.lint.outputs.results-path }}
+
+runs:
+  using: composite
+  steps:
+    - name: Install TFLint
+      shell: bash
+      run: curl https://raw.githubusercontent.com/terraform-linters/tflint/master/install_linux.sh | bash
+
+    - id: lint
+      working-directory: ${{ inputs.working-folder }}
+      name: Lint
+      run: |-
+        set resultsPath="tflint-results.xml"
+        echo "::set-output name=results-path::$(echo $resultsPath)"
+        tflint . --format=junit > $resultsPath
+      shell: bash
