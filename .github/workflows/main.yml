@@ -20,6 +20,6 @@ jobs:
       - uses: actions/checkout@v2
       - id: tflint
         name: Reusable action
-        uses: ./.github/actions/tflint
+        uses: ./.github/actions/terraform/tflint
       - run: 'echo "Results path: ${{ steps.tflint.outputs.results-path }}"'
         shell: bash
